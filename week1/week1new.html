@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <!-- 控制網頁縮放，不要讓網頁亂縮放 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8"/>
+        <title>WEEK1-TZUCHING</title>   
+        <link rel="stylesheet" type="text/css" href="week1.css"/>
+    </head>
+    <body style="margin:0px"> <!-- 把左右白邊去除 -->
+        
+        <div class="frame">
+            <div class="left">My Website</div>
+            <div class="frame2">
+                <div class="desktop-menu">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                </div>
+            </div> 
+            <div class="frame4">
+                <div onclick="changeToMenu();" class="mobile-menu" >
+                    <img src="burger.svg" width="25" height="25"/></div>
+                <div id="new" class="new" style="display:none">
+                    <div onclick="changeToNoMenu();" class="close">
+                        <img src="close.png" width="10" height="10"/></div>
+                    <div class="newitem">Item 1</div>
+                    <div class="newitem">Item 2</div>
+                    <div class="newitem">Item 3</div>
+                    <div class="newitem">Item 4</div>
+                </div>
+            </div>
+        </div>
+            <div class="welcome">
+                <div class="text">Welcome to MyHome</div>
+        </div>
+        <script>
+            function changeToMenu(){
+                let newDiv=document.querySelector("#new");
+                newDiv.style.display="block";
+            }
+            function changeToNoMenu(){
+                let newDiv=document.querySelector("#new");
+                newDiv.style.display="none";
+            }
+        </script>
+
+        <div class="wrapper">
+            <div class="smallbox1"><img src="photo.jpeg" width="80" height="50"/>Promotion 1</div>
+            <div class="smallbox2"><img src="photo.jpeg" width="80" height="50"/>Promotion 2</div>
+            <div class="smallbox3"><img src="photo.jpeg" width="80" height="50"/>Promotion 3</div>
+        </div> 
+        <div class="frame3">
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 1</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 2</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 3</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 4</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 5</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 6</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 7</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 8</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 9</div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title">Title 10</div>
+            </div>
+        </div>   
+    </body>
+</html>

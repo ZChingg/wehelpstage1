@@ -65,8 +65,5 @@ while count < 3:
 import csv        
 with open("article.csv", mode="w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
-    # 寫入標題列
-    writer.writerow(["ArticleTitle", "Like/DislikeCount", "PublishTime"])
-    # 寫入資料
     for result in all_results:
         writer.writerow(result)

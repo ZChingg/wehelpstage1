@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <!-- 控制網頁縮放，不要讓網頁亂縮放 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8"/>
+        <title>Task3</title>   
+        <link rel="stylesheet" type="text/css" href="Task3.css"/>
+    </head>
+    <body style="margin:0px"> <!-- 把左右白邊去除 -->
+        
+        <div class="frame">
+            <div class="left">My Website</div>
+            <div class="frame2">
+                <div class="desktop-menu">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                </div>
+            </div> 
+            <div class="frame4">
+                <div onclick="changeToMenu();" class="mobile-menu" >
+                    <img src="burger.svg" width="25" height="25"/></div>
+                <div id="new" class="new" style="display:none">
+                    <div onclick="changeToNoMenu();" class="close">
+                        <img src="close.png" width="10" height="10"/></div>
+                    <div class="newitem">Item 1</div>
+                    <div class="newitem">Item 2</div>
+                    <div class="newitem">Item 3</div>
+                    <div class="newitem">Item 4</div>
+                </div>
+            </div>
+        </div>
+            <div class="welcome">
+                <div class="text">Welcome to MyHome</div>
+        </div>
+
+        <div class="wrapper">
+            <div><img src="" width="80" height="50"/></div>
+            <div><img src="" width="80" height="50"/></div>
+            <div class="smallbox3"><img src="" width="80" height="50"/></div>
+        </div> 
+        <div class="frame3">
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+            <div class="bigbox">
+                <div class="star"><img src="star.png" width="30"; height="30"/></div>
+                <div class="title"></div>
+            </div>
+        </div>  
+        <div onclick="addbox()" class="loadmoreframe" >
+            <div class ="loadmore">Load More</div>
+        </div>
+        
+        <script>
+            // 表單開起隱藏
+            function changeToMenu(){
+                let newDiv=document.querySelector("#new");
+                newDiv.style.display="block";
+            }
+            function changeToNoMenu(){
+                let newDiv=document.querySelector("#new");
+                newDiv.style.display="none";
+            }
+
+            // button 新增 div
+            function addbox(){
+                const frame3 = document.querySelector(".frame3")
+                for(let i=0; i<10; i++){
+                const newframe3 = document.createElement("DIV")
+                newframe3.className = "frame3";
+                const newbigbox = document.createElement("DIV")
+                newbigbox.className = "bigbox";
+                const newstar = document.createElement("DIV")
+                newstar.className = "star";    
+                const newstarImg = document.createElement("IMG");
+                newstarImg.src = "star.png";
+                newstarImg.width = 30;
+                newstarImg.height = 30;
+                const newtitle = document.createElement("DIV")
+                newtitle.className = "title";
+
+                frame3.appendChild(newbigbox);
+                newbigbox.appendChild(newstar);
+                newstar.appendChild(newstarImg);
+                newbigbox.appendChild(newtitle);
+                }
+            }
+
+            // 抓資料
+            fetch(
+                "https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-1"
+            ).then(function(response){ 
+                return response.json();
+            }).then(function(data){
+                // 從第三個連結開始起算
+                let startIndex = 3;
+                // 選擇所有的 .bigbox、.title、.wrapper div 元素
+                let bigboxes = document.querySelectorAll('.bigbox');
+                let titles = document.querySelectorAll('.title');
+                let wrappers = document.querySelectorAll('.wrapper div');
+                // 迭代資料並將資料放入對應的內容中 (ex: 將連結放入對應的 bigbox 中)
+                for(let i = 0; i < data.data.results.length; i++){ 
+                    let site = data.data.results[i]; // 把陣列中的資料逐一拿出來
+                    let filelist = site["filelist"]; // 遍歷所有網址
+                    let index_link = filelist.indexOf("http", 10); // 從第10個位置開始查找，找到第二個 http，來回推第一個網址
+                    if(index_link !== -1){ // 若找不到會回傳 -1
+                        let link = filelist.substring(0, index_link);
+                        // 將連結設定為 bigbox 的背景圖片
+                        if(bigboxes[i - startIndex]) { // 確保 bigbox 存在 // 找到正確的位置
+                            bigboxes[i - startIndex].style.backgroundImage = `url(${link})`; // CSS 字串插值，將變數 link 值嵌入 CSS 背景圖 url() 函式中 >> 需弄清模板字面量語法
+                        }
+                    }
+                    let stitle = site["stitle"];
+                    if(titles[i - startIndex]){ // 確保 title 存在 // 找到正確的位置
+                        titles[i - startIndex].textContent = stitle;
+                    }
+                    if(wrappers[i] && index_link !== -1){ // 確保 wrapper div 存在 
+                        let link = filelist.substring(0, index_link);
+                        let img = wrappers[i].querySelector('img'); // 找到 wrapper div 中的 img 元素
+                        if(img){ // 若存在 img
+                            img.src = link;
+                            // 以下也可用: wrappers[i].innerHTML = `<img src="${link}" width="80" height="50"/>${stitle}`
+                            let newText = document.createTextNode(stitle); // 建立文字節點: document.createTextNode(字串) 
+                            wrappers[i].appendChild(newText);  // 將指定 childNode 節點加到 Node 父容器節點末端: appendChild(節點)
+                        }
+                    }
+            }});
+        </script>
+    </body>
+</html>

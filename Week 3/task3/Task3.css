@@ -1,0 +1,219 @@
+.frame{
+    display:flex; /* 讓下一層次的項目水平排列 */ 
+    align-items:center; 
+}
+.left{
+    flex:none; /* 固定配置 */  
+    width:200px;
+}
+.frame2{ /*隱藏用*/
+    display:block;
+    flex:auto;
+}
+.desktop-menu{
+    display:flex; /* 讓下一層次的項目水平排列 */
+    justify-content:flex-end; /* 水平對齊 */
+}
+.frame4{ /*隱藏用*/
+    display:none;
+    flex:auto;
+}
+.mobile-menu{
+    display:flex;
+    justify-content:flex-end; /* 水平對齊 */
+}
+.item{
+    flex:none;
+    width:70px;
+    text-align: center;
+}
+
+.welcome{
+    display:flex;
+    justify-content: center;
+    align-items: center; /* 垂直對齊 */
+    height:250px;
+    background-color: #FEEEED;
+}
+.text{
+    font-size:40px;
+    font-weight:bold;
+    text-align: center;
+}
+.wrapper{ /*smallsbox框*/
+    display:grid;
+    margin:0 auto;
+    width: 1200px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px;
+    margin-top: 20px;
+    grid-gap:20px 0px;
+}
+.wrapper div{
+    display:flex; /* 讓下一層次的項目水平排列 */ 
+    align-items: center;
+    background-color:#E8D3D1 ;
+    margin-left:10px;
+    margin-right:10px;
+    
+}
+.frame3{ /*bigbox框*/
+    display:grid;
+    margin:0 auto;
+    width: 1200px;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1hr;
+    grid-gap:20px 0px;
+    margin-top: 20px;
+}
+.bigbox{
+    background-image: url("photo.jpeg");
+    background-size: cover; /*讓圖片覆蓋整個容器，並保留圖片比例*/
+    background-position: center; /*確保圖片置中*/
+    position: relative;
+    margin-left:10px;
+    margin-right:10px;
+    height: 200px;
+}
+.star{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+.title{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFFa3;
+    position: relative;
+    top: 150px;
+}
+.loadmoreframe{
+    display:flex;
+    margin:0 auto;
+    justify-content: center;
+    align-items: center;
+    background-color: #FEEEED;
+    margin-top: 20px;
+    width: 200px;
+    height: 50px;
+}
+
+.loadmore{
+    text-align: center;
+}
+
+@media (min-width:601px) and (max-width:1200px){
+    .wrapper{ /*smallsbox框*/
+        display:grid;
+        margin:0 auto;
+        width:90%;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50px 50px;
+        margin-top: 20px;
+        grid-gap:20px 20px;
+    }
+    .wrapper div{
+    display:flex; /* 讓下一層次的項目水平排列 */ 
+    align-items: center;
+    background-color:#E8D3D1 ;
+    margin-left:0px;
+    margin-right:0px
+    }
+    .smallbox3{
+        grid-column:1 / 3 ;
+    }
+    .frame3{ /*bigbox框*/
+        display:grid;
+        margin:0 auto;
+        width:90%;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-gap:20px 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .bigbox{
+        background-image: url("photo.jpeg");
+        background-size: cover; /*讓圖片覆蓋整個容器，並保留圖片比例*/
+        background-position: center; /*確保圖片置中*/
+        position: relative;
+        margin-left:0px;
+        margin-right:0px;
+        height: 200px;
+    }
+    .bigbox:nth-child(9),
+    .bigbox:nth-child(19),
+    .bigbox:nth-child(29){ /* last-child 的前一個 */
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    .bigbox:nth-child(10),
+    .bigbox:nth-child(20),
+    .bigbox:nth-child(30){
+        grid-column-start: 3;
+        grid-column-end: 5;
+    }
+}
+
+@media (max-width:600px){
+    .wrapper{ /*smallsbox框*/
+        display:grid;
+        width:90%;
+        grid-template-columns: 100%;
+        grid-template-rows: 50px 50px 50px;
+        margin-top: 20px;
+        grid-gap:20px 0px;
+    }
+    .wrapper div{
+    align-items: center;
+    background-color:#E8D3D1 ;
+    margin-left:0px;
+    margin-right:0px
+    }
+    .frame3{ /*bigbox框*/
+        display:grid;
+        margin:0 auto;
+        width:90%;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+        grid-gap:20px 0px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .bigbox{
+        background-image: url("photo.jpeg");
+        background-size: cover; /*讓圖片覆蓋整個容器，並保留圖片比例*/
+        background-position: center; /*確保圖片置中*/
+        position: relative;
+        margin-left:0px;
+        margin-right:0px;
+        height: 200px;
+    }
+    .frame2{
+        display:none;
+    }
+    .frame4{
+        display:block;
+    }
+    .new{
+        width:50%;
+        height:100%;
+        background-color: white;
+        position:absolute;
+        top:0;
+        right:0;
+        z-index: 1;
+        box-shadow: -3px 5px 5px gray;
+    }
+    .newitem{
+        margin-top:30px;
+        text-align:center;
+    }
+    .close{
+        position:absolute;
+        top:5px;
+        right:10px;
+    }
+}

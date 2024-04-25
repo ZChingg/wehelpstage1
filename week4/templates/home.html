@@ -1,0 +1,30 @@
+<html>
+    <head>  
+        <title>Item Details</title>
+        <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+    </head>
+    <body style = "margin:0px">
+        <div class="frame">
+            <div class="text">{{ title }}</div>
+        </div>
+        <div class = "message"><strong>登入系統</strong></div>
+        <form onsubmit = "validateForm(event)" method = "post" action = "/signin">  <!-- 指定表單用 POST 方法並發送到 /signin 路徑 -->
+            帳號 <input type = "text" name = "text"/> <!-- name: 提交表單後引用表單數據 -->
+            <br/>
+            密碼 <input type = "password" name = "password"/>
+            <br/>
+            同意條款 <input type = "checkbox" id = "check"/>
+            <br/>
+            <input type = "submit" value = "登入" />
+        </form>
+    </body>
+    <script>
+        function validateForm(event){ // 表單提交前進行驗證
+            const checkbox = document.getElementById("check"); // 快速選取特定 ID 元素 
+            if (!checkbox.checked) {
+                alert("Please check the checkbox first");
+                event.preventDefault(); // 停止事件的默認動作
+            }
+        }
+    </script>
+</html>

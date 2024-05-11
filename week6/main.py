@@ -15,7 +15,7 @@ app.add_middleware(SessionMiddleware, secret_key="secret_key")
 # 利用 mysql.connector 套件，呼叫 connect 方法，並提供帳號相關資訊
 con = mysql.connector.connect(
     user = "root",
-    password = "a32128466",
+    password = "0000",
     host = "localhost",
     database = "website"
 )

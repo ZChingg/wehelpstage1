@@ -17,17 +17,35 @@
         <form method = "post" action = "/createMessage"> 
             內容 <input type = "text" name = "content" required/> 
             <br/>
-            <input type = "submit" value = "送出" />
+            <input style = "margin-top:5px" type = "submit" value = "送出" />
         </form>
         <br/>
         <hr color = #DCDCDC>
         <br/>
         
-        <!-- 在 Tempaltes 中使用類似 Python for 迴圈，逐一取得所需資料 --> 
         <div> 
             {% for row in content %} 
-                <div class="message"><strong>{{ row[6] }}：</strong>{{ row[2] }}</div>
+                <div class="message">
+                    <strong>{{ row[6] }}：</strong>{{ row[2] }}
+                    {% if row[5] == id %}
+                        <form onsubmit = "return popup()" method = "post" action = "/deleteMessage">
+                            <input class = "inputX" type = "submit" value = "X" />
+                            <input type = "hidden" name = "id" value = "{{ row[1] }}" />
+                            <input type = "hidden" name = "message_id" value = "{{ row[0] }}" />
+                        </form>
+                    {% endif %}
+                </div>
             {% endfor %}
         </div>
     </body>
+    <script>
+        function popup(){
+            let execute = confirm("確定要刪除嗎？");
+            if(execute == true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </html>

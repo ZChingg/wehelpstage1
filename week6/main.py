@@ -15,7 +15,7 @@ app.add_middleware(SessionMiddleware, secret_key="secret_key")
 # 利用 mysql.connector 套件，呼叫 connect 方法，並提供帳號相關資訊
 con = mysql.connector.connect(
     user = "root",
-    password = "0000",
+    password = "a32128466",
     host = "localhost",
     database = "website"
 )
@@ -72,6 +72,7 @@ async def member(request: Request):
         return RedirectResponse(url="/", status_code=302)
     
     name = request.session.get("NAME")
+    id = request.session.get("ID")
     con.reconnect()
     cursor = con.cursor()
     cursor.execute("SELECT * FROM message INNER JOIN member ON message.member_id = member.id ORDER BY message.time DESC")
@@ -81,7 +82,8 @@ async def member(request: Request):
                          "title": "歡迎光臨，這是會員頁", 
                          "message": f"{name}，歡迎登入系統", # f-string 格式化字串: 字串前加f，可於字串中使用{}插入變數or表達式
                          "redirect":"登出系統",
-                         "content": data3})
+                         "content": data3,
+                         "id": id})
         
 @app.get("/error") 
 async def error(request: Request, message: str):
@@ -102,6 +104,20 @@ async def content(request: Request,
     cursor.execute("INSERT INTO message(member_id, content) VALUES(%s, %s)", (member_id, content)) 
     con.commit()
     return RedirectResponse(url="/member", status_code=302)
+
+@app.post("/deleteMessage") 
+async def delete(request: Request,
+    id: int = Form(), 
+    message_id: int = Form()):
+    member_id = request.session.get("ID")
+    if id == member_id:
+        con.reconnect()
+        cursor = con.cursor()
+        cursor.execute("DELETE FROM message WHERE id = %s", (message_id, )) # Tuple 只有一個值也要逗號
+        con.commit()
+        return RedirectResponse(url="/member", status_code=302)
+    else:
+        return RedirectResponse(url="/member", status_code=302)
 
 # 關閉資料庫連線
 con.close()

@@ -15,12 +15,16 @@
 .message{
     display:flex;
     justify-content: center; 
-    align-items: center; /* 垂直對齊 */
 }
 form{
     text-align: center;
-    line-height: 2.5em;
+    line-height: 2em;
+    margin: 0; 
 }
 form input{
     padding: 3px 6px;
+}
+.inputX{
+    padding: 0px 5px;
+    margin-left: 5px;
 }

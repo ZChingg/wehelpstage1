@@ -36,7 +36,11 @@ async def member(request: Request):
     if not request.session.get("SIGNED-IN", False): 
         return RedirectResponse(url="/", status_code=302)
     return templates.TemplateResponse(
-        "success.html", {"request": request, "title": "歡迎光臨，這是會員頁", "message": "恭喜您，成功登入系統", "redirect":"登出系統"})
+        "success.html", {"request": request,
+                        "title": "歡迎光臨，這是會員頁",
+                        "message": "恭喜您，成功登入系統", 
+                        "link": "http://127.0.0.1:8000/signout", 
+                        "redirect":"登出系統"})
 
 @app.get("/error") 
 async def error(request: Request, message: str):
@@ -47,3 +51,15 @@ async def error(request: Request, message: str):
 async def login(request: Request):
     request.session["SIGNED-IN"] = False
     return RedirectResponse(url="/", status_code=302)
+
+# @app.get("/固定字首/{參數名稱}")
+# def 處理函式名稱(參數名稱):
+@app.get("/square/{number}")
+def square(request: Request, number):
+    number = int(number) # 路徑參數預設為字串，故此要轉換成整數
+    return templates.TemplateResponse(
+        "success.html", {"request": request,
+                         "title": "正整數平方計算結果",
+                         "message": number * number,
+                         "link": "http://127.0.0.1:8000/", 
+                         "redirect": "返回頁面"})

@@ -8,7 +8,7 @@
             <div class="text">{{ title }}</div>
         </div>
         <div class = "message"><strong>登入系統</strong></div>
-        <form onsubmit = "validateForm(event)" method = "post" action = "/signin">  <!-- 指定表單用 POST 方法並發送到 /signin 路徑 -->
+        <form onsubmit = "validate(event)" method = "post" action = "/signin">  <!-- 指定表單用 POST 方法並發送到 /signin 路徑 -->
             帳號 <input type = "text" name = "text"/> <!-- name: 提交表單後引用表單數據 -->
             <br/>
             密碼 <input type = "password" name = "password"/>
@@ -17,13 +17,32 @@
             <br/>
             <input type = "submit" value = "登入" />
         </form>
+        <br/>
+        <hr color = #DCDCDC>
+        <br/>
+        <div class = "message"><strong>計算正整數的平方</strong></div>
+        <form onsubmit = "square(event)"> 
+            正整數 <input type = "text" name = "number" id = "number"/> 
+            <br/>
+            <input style = "margin-top:5px" type = "submit" value = "計算" />
+        </form>
     </body>
     <script>
-        function validateForm(event){ // 表單提交前進行驗證
+        function validate(event){ // 表單提交前進行驗證
             const checkbox = document.getElementById("check"); // 快速選取特定 ID 元素 
-            if (!checkbox.checked) {
+            if(!checkbox.checked){
                 alert("Please check the checkbox first");
                 event.preventDefault(); // 停止事件的默認動作
+            }
+        }
+        function square(event){
+            event.preventDefault(); // 停止事件默認(表單提交)動作，若無使用會干擾 JS 操作
+            const numelem = document.getElementById("number");
+            const number = numelem.value; // 獲取值
+            if(Number.isInteger(Number(number)) && Number(number) > 0){ // 轉換為數字同時判斷是否為正整數
+                document.location.href=`http://127.0.0.1:8000/square/${number}`; // 樣本字面值串接字串&變數 
+            }else{
+                alert("Please enter a positive number");
             }
         }
     </script>

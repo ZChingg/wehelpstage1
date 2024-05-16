@@ -1,0 +1,102 @@
+<html>
+    <head>  
+        <title>歡迎光臨</title>
+        <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+    </head>
+    <body style = "margin:0px">
+        <div class="frame">
+            <div class="text">{{ title }}</div> 
+        </div>
+        <div id = "welcome" class = "message">{{ message }}</div>
+        <div class = "message"><a href = "http://127.0.0.1:8000/signout">{{ redirect }}</a></div>
+        <br/>
+        <hr color = #DCDCDC>
+        <br/>
+        <div class = "message"><strong>快來留言吧</strong></div>
+        <form method = "post" action = "/createMessage"> 
+            內容 <input type = "text" name = "content" required/> 
+            <br/>
+            <input style = "margin-top:5px" type = "submit" value = "送出" />
+        </form>
+        <br/>
+        <hr color = #DCDCDC>
+        <br/>
+        <div> 
+            {% for row in content %} 
+                <div class="message">
+                    <strong>{{ row[6] }}：</strong>{{ row[2] }}
+                    {% if row[5] == id %}
+                        <form onsubmit = "return popup()" method = "post" action = "/deleteMessage">
+                            <input class = "inputX" type = "submit" value = "X" />
+                            <input type = "hidden" name = "message_id" value = "{{ row[0] }}" />
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <br/>
+        <div class = "message"><strong>查詢會員姓名</strong></div>
+        <form>
+            <!-- username 為鍵，搭配輸入的資料(值)，作為查詢參數 ex:?username=apple -->
+            <input type = "text" id = "username" required/>
+            <button onclick = "getData(event)">查詢</button>
+        </form>
+        <div id = "result" class = "message">&ensp;</div>
+        <br/>
+        <div class = "message"><strong>更新我的姓名</strong></div>
+        <form>
+            <input type = "text" id = "newname" required/> 
+            <button onclick ="getUpdate()" >更新</button>
+        </form>
+        <div id = "update" class = "message">&ensp;</div>
+        <br/>
+    </body>
+    <script>
+        function popup(){
+            let execute = confirm("確定要刪除嗎？");
+            if(execute == true){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function getData(event){
+            event.preventDefault();
+            const username = document.querySelector("#username").value; // 獲取值
+            fetch(`http://127.0.0.1:8000/api/member?username=${username}`)
+            .then(function(response){ // 接收伺服器回應，物件放入 response 參數
+                return response.json();
+            }).then(function(data){ // 物件放入 data 參數
+                let result = document.querySelector("#result");
+                if(data.data){ // 若 data 參數中的 data 有資料
+                    const name = data.data.name;
+                    const username = data.data.username;
+                    result.innerHTML = `${name}(${username})`;
+                }else{
+                    result.innerHTML = "無此會員";
+                }
+        })
+    }
+        function getUpdate(){
+            event.preventDefault();
+            const newname = document.querySelector("#newname").value
+            const data = {name: newname}
+            fetch("http://127.0.0.1:8000/api/member", {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data)
+            }).then(function(response){
+                return response.json();
+            }).then(function(data){ // 物件放入 data 參數
+                let update = document.querySelector("#update");
+                let welcome = document.querySelector("#welcome");
+                if(data.ok){ // 若 data 參數中有 ok 資料
+                    update.innerHTML = "更新成功";
+                    welcome.innerHTML = `${newname}，歡迎登入系統`
+                }else{
+                    update.innerHTML = "更新失敗";
+                }
+        })
+    }
+    </script>
+</html>

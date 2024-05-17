@@ -156,7 +156,6 @@ async def update(request: Request,
      id = request.session.get("ID")
      con.reconnect()
      cursor = con.cursor()
-     cursor.execute("SET SQL_SAFE_UPDATES = 0")
      cursor.execute("UPDATE member SET name = %s WHERE id = %s;", (new_name, id))
      con.commit()
      if cursor.rowcount > 0: # 獲取 SQL 操作影響的行數，確認更新是否成功
